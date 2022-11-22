@@ -21,8 +21,9 @@ StearingMock >> decrement: aGAngle [
 ]
 
 { #category : #'as yet unclassified' }
-StearingMock >> increment: aGAngle [ 
-	stearingValue := stearingValue + aGAngle 
+StearingMock >> increment: aGAngle [
+
+	stearingValue := (stearingValue + aGAngle) normalized
 ]
 
 { #category : #accessing }
@@ -32,7 +33,7 @@ StearingMock >> startAt: anInteger [
 
 { #category : #'as yet unclassified' }
 StearingMock >> stearingValue [
-	^ stearingValue
+	^ stearingValue 
 ]
 
 { #category : #'as yet unclassified' }

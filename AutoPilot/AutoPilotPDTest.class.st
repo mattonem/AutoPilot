@@ -11,8 +11,8 @@ AutoPilotPDTest >> newApWithStearing: stearing andHeading: heading courseToFollo
 	ap := PDAutoPilot new.
 	ap courseToFollow: aGangle.
 	ap headingSensor: heading.
-	ap kp: 1.
-	ap kd: 1.
+	ap kp: 0.2.
+	ap kd: 0.1.
 	ap stearingActuator: stearing.
 	^ ap
 ]
@@ -21,12 +21,17 @@ AutoPilotPDTest >> newApWithStearing: stearing andHeading: heading courseToFollo
 AutoPilotPDTest >> test1 [
 
 	| ap stearing heading |
-	heading := HeadingMock constant: (Point r: 1 theta: 0degrees).
-	stearing := StearingMock startAt: (Point r: 1 theta: 0degrees).
-	ap := self newApWithStearing: stearing andHeading: heading courseToFollow: (Point r: 1 theta: 0degrees).
+	heading := HeadingMock constant: (RelativeAngle degrees: 0).
+	stearing := StearingMock startAt: (RelativeAngle degrees: 0).
+	ap := self
+		      newApWithStearing: stearing
+		      andHeading: heading
+		      courseToFollow: (RelativeAngle degrees: 0).
 	100 timesRepeat: [ 
 		ap step.
-		self assert: stearing stearingValue equals: (Point r: 1 theta: 0degrees) ]
+		self
+			assert: stearing stearingValue degreeNumber 
+			equals: 0 ]
 ]
 
 { #category : #tests }
@@ -34,21 +39,50 @@ AutoPilotPDTest >> test2 [
 
 	| ap stearing heading oldStearingValue |
 	heading := HeadingMock valuesFrom:
-		           ((1 to: 100) collect: [ :i | 
-			            Point r: 1 theta: (20 - (20 / i)) degrees ]).
-	stearing := StearingMock startAt: (Point r: 1 theta: 0 degrees).
+		           ((1 to: 200) collect: [ :i | 
+			            RelativeAngle degrees: 20 - (20 / i) ]).
+	stearing := StearingMock startAt: (RelativeAngle degrees: 0).
 	oldStearingValue := stearing stearingValue.
 	ap := self
 		      newApWithStearing: stearing
 		      andHeading: heading
-		      courseToFollow: (Point r: 1 theta: 20 degrees).
+		      courseToFollow: (RelativeAngle degrees: 20).
+
+	1 to: 100 do: [ :i | 
+		ap step.
+		oldStearingValue := stearing stearingValue ].
+
 
 	1 to: 100 do: [ :i | 
 		| ds |
 		ap step.
 		ds := oldStearingValue - stearing stearingValue.
 		oldStearingValue := stearing stearingValue.
-		Transcript
-			show: 'i: ' , i asString , ' delta stearing: ' , ds r asString;
-			cr ]
+		self assert: ds degreeNumber closeTo: 0 precision: 0.01 ]
+]
+
+{ #category : #tests }
+AutoPilotPDTest >> test3 [
+
+	| ap stearing heading oldStearingValue |
+	stearing := StearingMock startAt:  (RelativeAngle degrees: 0).
+	heading := HeadingMock stearing: stearing.
+	oldStearingValue := stearing stearingValue.
+	ap := self
+		      newApWithStearing: stearing
+		      andHeading: heading
+		      courseToFollow:  (RelativeAngle degrees: -45).
+
+	1 to: 100 do: [ :i | 
+		ap step.
+		oldStearingValue := stearing stearingValue.
+		"Transcript show:  heading headingValue theta radiansToDegrees asString ;cr"].
+
+
+	1 to: 100 do: [ :i | 
+		| ds |
+		ap step.
+		ds := oldStearingValue - stearing stearingValue.
+		oldStearingValue := stearing stearingValue.
+		self assert: ds degreeNumber closeTo: 0 precision: 0.01 ]
 ]

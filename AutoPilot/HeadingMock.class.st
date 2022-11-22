@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'headingValue',
-		'values'
+		'values',
+		'stearing'
 	],
 	#category : #'AutoPilot-Tests'
 }
@@ -13,6 +14,15 @@ HeadingMock class >> constant: anInteger [
 
 	^ self new
 		  constant: anInteger;
+		  yourself
+]
+
+{ #category : #'as yet unclassified' }
+HeadingMock class >> stearing: aStearingMock [
+
+	^ self new
+		  stearing: aStearingMock;
+		  constant: (RelativeAngle degrees: 0);
 		  yourself
 ]
 
@@ -31,10 +41,19 @@ HeadingMock >> constant: anInteger [
 
 { #category : #accessing }
 HeadingMock >> headingValue [
+	stearing ifNotNil: [ 
+		headingValue := (headingValue + stearing stearingValue ).
+		^ headingValue
+		 ].
 	values ifNotNil: [ 
 		^ values removeFirst
 		 ].
 	^ headingValue
+]
+
+{ #category : #'as yet unclassified' }
+HeadingMock >> stearing: aStearingMock [ 
+	stearing := aStearingMock
 ]
 
 { #category : #'as yet unclassified' }
