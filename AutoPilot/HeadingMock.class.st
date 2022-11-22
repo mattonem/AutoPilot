@@ -41,13 +41,15 @@ HeadingMock >> constant: anInteger [
 
 { #category : #accessing }
 HeadingMock >> headingValue [
+
 	stearing ifNotNil: [ 
-		headingValue := (headingValue + stearing stearingValue ).
-		^ headingValue
-		 ].
-	values ifNotNil: [ 
-		^ values removeFirst
-		 ].
+		headingValue := headingValue + stearing stearingValue
+		                + (RelativeAngle degrees: 0.1).
+		Transcript
+			show: headingValue degreeNumber asString;
+			cr.
+		^ headingValue ].
+	values ifNotNil: [ ^ values removeFirst ].
 	^ headingValue
 ]
 

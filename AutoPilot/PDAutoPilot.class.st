@@ -26,9 +26,9 @@ PDAutoPilot >> step [
 
 	| error derror |
 	error := courseToFollow - headingSensor headingValue.
-	Transcript
-		show: error degreeNumber asString;
-		cr.
+	"Transcript
+		show: stearingActuator stearingValue degreeNumber asString;
+		cr."
 	lastError ifNil: [ lastError := error ].
 	derror := lastError - error.
 	lastError := error.

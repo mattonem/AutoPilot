@@ -71,7 +71,7 @@ AutoPilotPDTest >> test3 [
 	ap := self
 		      newApWithStearing: stearing
 		      andHeading: heading
-		      courseToFollow:  (RelativeAngle degrees: -45).
+		      courseToFollow:  (RelativeAngle degrees: 45).
 
 	1 to: 100 do: [ :i | 
 		ap step.
