@@ -34,3 +34,8 @@ StearingMock >> startAt: anInteger [
 StearingMock >> stearingValue [
 	^ stearingValue
 ]
+
+{ #category : #'as yet unclassified' }
+StearingMock >> stearingValue: aStearingValue [
+	stearingValue := aStearingValue
+]
