@@ -2,7 +2,8 @@ Class {
 	#name : #HeadingMock,
 	#superclass : #Object,
 	#instVars : [
-		'headingValue'
+		'headingValue',
+		'values'
 	],
 	#category : #'AutoPilot-Tests'
 }
@@ -15,6 +16,14 @@ HeadingMock class >> constant: anInteger [
 		  yourself
 ]
 
+{ #category : #'as yet unclassified' }
+HeadingMock class >> valuesFrom: aCollection [
+
+	^ self new
+		  valuesFrom: aCollection;
+		  yourself
+]
+
 { #category : #accessing }
 HeadingMock >> constant: anInteger [ 
 	headingValue := anInteger 
@@ -22,5 +31,13 @@ HeadingMock >> constant: anInteger [
 
 { #category : #accessing }
 HeadingMock >> headingValue [
+	values ifNotNil: [ 
+		^ values removeFirst
+		 ].
 	^ headingValue
+]
+
+{ #category : #'as yet unclassified' }
+HeadingMock >> valuesFrom: aCollection [ 
+	values:= aCollection asOrderedCollection
 ]

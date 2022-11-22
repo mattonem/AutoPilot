@@ -29,5 +29,5 @@ PDAutoPilot >> step [
 	lastError ifNil: [ lastError := error ].
 	derror := lastError - error.
 	lastError := error.
-	stearingActuator stearingValue: kp * error + (kd * derror)
+	stearingActuator increment: kp * error + (kd * derror)
 ]
