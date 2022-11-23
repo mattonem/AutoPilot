@@ -7,10 +7,9 @@ Class {
 { #category : #arithmetic }
 RelativeAngle >> * anInteger [
 
-	self isReflex
-		ifTrue: [ 
-		^ (self explementary * anInteger) explementary ]
-		ifFalse: [ ^ self _multiplyRadiansByNumber: anInteger ]
+	^ self isReflex
+		ifTrue: [ (self explementary * anInteger) explementary ]
+		ifFalse: [ self _multiplyRadiansByNumber: anInteger ]
 ]
 
 { #category : #arithmetic }
@@ -25,6 +24,14 @@ RelativeAngle >> addWithAngle: aGAngle [
 	^ self class radians: (aGAngle radians + self radians) 
 ]
 
+{ #category : #comparing }
+RelativeAngle >> closeTo: anInteger precision: aNumber [
+
+	^ self isReflex
+		  ifTrue: [ self explementary closeTo: anInteger precision: aNumber ]
+		  ifFalse: [ (self - anInteger) <= aNumber ]
+]
+
 { #category : #arithmetic }
 RelativeAngle >> explementary [
 
@@ -34,5 +41,5 @@ RelativeAngle >> explementary [
 { #category : #arithmetic }
 RelativeAngle >> substractWithAngle: aGAngle [
 
-	^ self class radians: (aGAngle radians - self radians) 
+	^ self class radians: (self class radians: aGAngle radians - self radians) radians
 ]

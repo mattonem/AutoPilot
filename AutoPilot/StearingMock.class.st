@@ -23,7 +23,7 @@ StearingMock >> decrement: aGAngle [
 { #category : #'as yet unclassified' }
 StearingMock >> increment: aGAngle [
 
-	stearingValue := (stearingValue + aGAngle) normalized
+	stearingValue := (stearingValue + aGAngle) 
 ]
 
 { #category : #accessing }

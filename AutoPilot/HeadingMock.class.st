@@ -44,10 +44,10 @@ HeadingMock >> headingValue [
 
 	stearing ifNotNil: [ 
 		headingValue := headingValue + stearing stearingValue
-		                + (RelativeAngle degrees: 0.1).
-		Transcript
+		                + (RelativeAngle degrees: 10).
+		"Transcript
 			show: headingValue degreeNumber asString;
-			cr.
+			cr."
 		^ headingValue ].
 	values ifNotNil: [ ^ values removeFirst ].
 	^ headingValue

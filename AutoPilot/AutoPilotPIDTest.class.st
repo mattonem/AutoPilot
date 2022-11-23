@@ -1,24 +1,25 @@
 Class {
-	#name : #AutoPilotPDTest,
+	#name : #AutoPilotPIDTest,
 	#superclass : #TestCase,
 	#category : #'AutoPilot-Tests'
 }
 
 { #category : #tests }
-AutoPilotPDTest >> newApWithStearing: stearing andHeading: heading courseToFollow: aGangle [
+AutoPilotPIDTest >> newApWithStearing: stearing andHeading: heading courseToFollow: aGangle [
 
 	| ap |
-	ap := PDAutoPilot new.
+	ap := PIDAutoPilot new.
 	ap courseToFollow: aGangle.
 	ap headingSensor: heading.
-	ap kp: 0.2.
-	ap kd: 0.1.
+	ap kp: 0.5.
+	ap kd: 0.
+	ap ki: 0.9.
 	ap stearingActuator: stearing.
 	^ ap
 ]
 
 { #category : #tests }
-AutoPilotPDTest >> test1 [
+AutoPilotPIDTest >> test1 [
 
 	| ap stearing heading |
 	heading := HeadingMock constant: (RelativeAngle degrees: 0).
@@ -35,7 +36,7 @@ AutoPilotPDTest >> test1 [
 ]
 
 { #category : #tests }
-AutoPilotPDTest >> test2 [
+AutoPilotPIDTest >> test2 [
 
 	| ap stearing heading oldStearingValue |
 	heading := HeadingMock valuesFrom:
@@ -58,31 +59,34 @@ AutoPilotPDTest >> test2 [
 		ap step.
 		ds := oldStearingValue - stearing stearingValue.
 		oldStearingValue := stearing stearingValue.
-		self assert: ds degreeNumber closeTo: 0 precision: 0.01 ]
+		self assert: ds  closeTo: 0 degrees precision: 0.01 degrees ]
 ]
 
 { #category : #tests }
-AutoPilotPDTest >> test3 [
+AutoPilotPIDTest >> test3 [
 
 	| ap stearing heading oldStearingValue |
-	stearing := StearingMock startAt:  (RelativeAngle degrees: 0).
+	stearing := StearingMock startAt: (RelativeAngle degrees: 0).
 	heading := HeadingMock stearing: stearing.
 	oldStearingValue := stearing stearingValue.
 	ap := self
 		      newApWithStearing: stearing
 		      andHeading: heading
-		      courseToFollow:  (RelativeAngle degrees: 45).
+		      courseToFollow: (RelativeAngle degrees: 45).
 
 	1 to: 100 do: [ :i | 
 		ap step.
-		oldStearingValue := stearing stearingValue.
-		"Transcript show:  heading headingValue theta radiansToDegrees asString ;cr"].
+
+		oldStearingValue := stearing stearingValue
+
+		"Transcript show:  stearing stearingValue  degreeNumber asString ;cr" ].
 
 
 	1 to: 100 do: [ :i | 
 		| ds |
 		ap step.
+
 		ds := oldStearingValue - stearing stearingValue.
 		oldStearingValue := stearing stearingValue.
-		self assert: ds degreeNumber closeTo: 0 precision: 0.01 ]
+		self assert: ds closeTo: 0 degrees precision: 0.01 degrees ]
 ]
