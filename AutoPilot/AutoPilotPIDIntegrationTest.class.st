@@ -14,7 +14,7 @@ AutoPilotPIDIntegrationTest >> testProportionalIntegralResponse [
 		          yourself.
 	system := MockComplexeSystem new
 		          output: 0 degrees;
-		          k: 0.1;
+		          k: 1;
 		          s: 1 degrees;
 		          yourself.
 	ap := PIDAutoPilot new
@@ -42,7 +42,7 @@ AutoPilotPIDIntegrationTest >> testProportionalResponse [
 		          yourself.
 	system := MockComplexeSystem new
 		          output: 0 degrees;
-		          k: 0.1;
+		          k: 1;
 		          yourself.
 	ap := PIDAutoPilot new
 		      kp: 1;
@@ -74,4 +74,32 @@ AutoPilotPIDIntegrationTest >> testWithNoStearing [
 		      yourself.
 	system input: (ap step: (errCal headingValue: 0 degrees)).
 	self assert: system output equals: 0 degrees
+]
+
+{ #category : #tests }
+AutoPilotPIDIntegrationTest >> testZigZag [
+
+	| system errCal ap |
+	errCal := ErrorCalculator new
+		          headingValue: 0 degrees;
+		          course: 0 degrees;
+		          yourself.
+	system := MockComplexeSystem new
+		          output: 0 degrees;
+		          k: 1;
+		          s: 0.5 degrees;
+		          yourself.
+	ap := PIDAutoPilot new
+		      kp: 1;
+		      ki: 1;
+		      kd: 0;
+		      yourself.
+
+	1 to: 10000 do: [ :i | 
+		system input: (ap step: errCal headingValue).
+		errCal course: 90 * (i * 0.1) degrees sin degrees.
+		self
+			assert: (errCal headingValue: system output)
+			closeTo: 0
+			precision: 1 ]
 ]
