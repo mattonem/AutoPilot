@@ -18,8 +18,7 @@ AutoPilot >> stearingActuator: aStearingMock [
 	stearingActuator := aStearingMock
 ]
 
-{ #category : #stepping }
-AutoPilot >> step [
-
+{ #category : #'as yet unclassified' }
+AutoPilot >> step: aValue [
 	self subclassResponsibility
 ]
