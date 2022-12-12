@@ -6,7 +6,8 @@ Class {
 		'kp',
 		'ki',
 		'lastError',
-		'ei'
+		'ei',
+		'maxError'
 	],
 	#category : #AutoPilot
 }
@@ -30,21 +31,13 @@ PIDAutoPilot >> kp: anObject [
 ]
 
 { #category : #stepping }
-PIDAutoPilot >> step [
+PIDAutoPilot >> step: newError [
 
-	| error derror |
-	error := courseToFollow - headingSensor headingValue.
-"	Transcript
-		show: error degreeNumber asString;
-		cr."
-	lastError ifNil: [ lastError := error ].
-
-	ei ifNil: [ ei := error - error ].
-	ei := ei + error.
-		Transcript
-		show: (ei + (180 degrees)) degreeNumber asString;
-		cr.
-	derror := lastError - error.
-	lastError := error.
-	stearingActuator stearingValue: kp * error + (kd * derror) + (ki * ei)
+	| derror |
+	lastError ifNil: [ lastError := newError ].
+	ei ifNil: [ ei := newError - newError ].
+	ei := ei + newError.
+	derror := lastError - newError.
+	lastError := newError.
+	^ kp * newError + (kd * derror) + (ki * ei)
 ]

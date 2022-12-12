@@ -2,17 +2,11 @@ Class {
 	#name : #AutoPilot,
 	#superclass : #Object,
 	#instVars : [
-		'courseToFollow',
 		'headingSensor',
 		'stearingActuator'
 	],
 	#category : #AutoPilot
 }
-
-{ #category : #'as yet unclassified' }
-AutoPilot >> courseToFollow: aGAngle [ 
-	courseToFollow := aGAngle
-]
 
 { #category : #'as yet unclassified' }
 AutoPilot >> headingSensor: aHeadingMock [ 
