@@ -78,7 +78,7 @@ PIDAutoPilot >> tunePIkCrit: kcrit tCrit: tcrit [
 
 	self
 		kp: kcrit * 0.45;
-		ti: 1 / 1.2 * tcrit;
+		ti: 1.2 * tcrit * kp;
 		kd: 0;
 		yourself
 ]
