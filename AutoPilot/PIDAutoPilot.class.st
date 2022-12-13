@@ -87,3 +87,12 @@ PIDAutoPilot >> tunePIkCrit: kcrit tCrit: tcrit [
 		kd: 0;
 		yourself
 ]
+
+{ #category : #'as yet unclassified' }
+PIDAutoPilot >> tunePkCrit: kCrit tCrit: tCrit [
+
+	^ self
+		  kp: 0.5 * kCrit;
+		  ki: 0;
+		  kd: 0
+]
