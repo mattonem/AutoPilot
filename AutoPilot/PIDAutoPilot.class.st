@@ -7,7 +7,8 @@ Class {
 		'ki',
 		'lastError',
 		'ei',
-		'corrMax'
+		'corrMax',
+		'lastUpdateTime'
 	],
 	#category : #AutoPilot
 }
@@ -44,12 +45,24 @@ PIDAutoPilot >> kp: anObject [
 { #category : #stepping }
 PIDAutoPilot >> step: newError [
 
-	| derror corr |
+	lastUpdateTime ifNil: [ lastUpdateTime := 0 ].
+	^ self step: newError newTime: lastUpdateTime + 1
+]
+
+{ #category : #stepping }
+PIDAutoPilot >> step: newError newTime: aTime [
+
+	| derror corr dTime |
+	lastUpdateTime ifNil: [ lastUpdateTime := aTime ].
+	dTime := aTime - lastUpdateTime.
+	lastUpdateTime := aTime.
+
 	lastError ifNil: [ lastError := newError ].
 	ei ifNil: [ ei := newError - newError ].
+	ei := ei + (dTime * newError).
 	ei := { 
 		      { 
-			      (ei + newError).
+			      ei.
 			      (corrMax / 2) } min.
 		      (0 - corrMax / 2) } max.
 	derror := lastError - newError.
