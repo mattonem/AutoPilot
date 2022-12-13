@@ -18,7 +18,7 @@ MockComplexeSystem >> initialize [
 { #category : #accessing }
 MockComplexeSystem >> input: input [
 
-	^ output := output + (k * input) degrees + s
+	^ output := output + (k * input) degrees + s value
 ]
 
 { #category : #accessing }

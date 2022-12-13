@@ -23,6 +23,11 @@ PIDAutoPilot >> initialize [
 	corrMax := Float infinity 
 ]
 
+{ #category : #'as yet unclassified' }
+PIDAutoPilot >> kCrit: aNumber tCrit: anInteger [ 
+	self shouldBeImplemented.
+]
+
 { #category : #accessing }
 PIDAutoPilot >> kd: anObject [
 
@@ -60,4 +65,20 @@ PIDAutoPilot >> step: newError [
 			  corr.
 			  corrMax } min.
 		  (0 - corrMax) } max
+]
+
+{ #category : #accessing }
+PIDAutoPilot >> ti: anObject [
+
+	ki := 1/anObject
+]
+
+{ #category : #'as yet unclassified' }
+PIDAutoPilot >> tunePIkCrit: kcrit tCrit: tcrit [
+
+	self
+		kp: kcrit * 0.45;
+		ti: 1 / 1.2 * tcrit;
+		kd: 0;
+		yourself
 ]
