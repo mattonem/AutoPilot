@@ -53,7 +53,7 @@ PIDAutoPilot >> step: newError [
 PIDAutoPilot >> step: newError newTime: aTime [
 
 	| derror corr dTime |
-	lastUpdateTime ifNil: [ lastUpdateTime := aTime ].
+	lastUpdateTime ifNil: [ lastUpdateTime := aTime  + 1 ].
 	dTime := aTime - lastUpdateTime.
 	lastUpdateTime := aTime.
 
@@ -65,7 +65,7 @@ PIDAutoPilot >> step: newError newTime: aTime [
 			      ei.
 			      (corrMax / 2) } min.
 		      (0 - corrMax / 2) } max.
-	derror := lastError - newError.
+	derror := lastError - newError / dTime.
 	lastError := newError.
 	corr := kp * newError + (kd * derror) + (ki * ei).
 	^ { 
@@ -78,7 +78,7 @@ PIDAutoPilot >> step: newError newTime: aTime [
 { #category : #accessing }
 PIDAutoPilot >> ti: anObject [
 
-	ki := 1/anObject
+	ki := 1/anObject * kp
 ]
 
 { #category : #'as yet unclassified' }
@@ -86,8 +86,8 @@ PIDAutoPilot >> tunePIDkCrit: kCrit tCrit: tCrit [
 
 	^ self
 		  kp: 0.6 * tCrit;
-		  ti: 0.5 * tCrit * kp;
-		  kd: 0.125 * tCrit * kp;
+		  ti: 0.5 * tCrit;
+		  kd: 0.125 * tCrit;
 		  yourself
 ]
 
@@ -96,7 +96,7 @@ PIDAutoPilot >> tunePIkCrit: kcrit tCrit: tcrit [
 
 	self
 		kp: kcrit * 0.45;
-		ti: 1.2 * tcrit * kp;
+		ti: 1.2 * tcrit ;
 		kd: 0;
 		yourself
 ]
@@ -107,5 +107,6 @@ PIDAutoPilot >> tunePkCrit: kCrit tCrit: tCrit [
 	^ self
 		  kp: 0.5 * kCrit;
 		  ki: 0;
-		  kd: 0
+		  kd: 0;
+		  yourself
 ]
