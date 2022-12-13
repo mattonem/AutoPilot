@@ -5,6 +5,19 @@ Class {
 }
 
 { #category : #tests }
+AutoPilotPIDTest >> testMaxCorr [
+
+	| ap |
+	ap := PIDAutoPilot new
+		      kp: 2;
+		      ki: 1;
+		      kd: 0;
+				corrMax: 1;
+		      yourself.
+	1 to: 100 do: [:i | self assert: (ap step: 1) equals: 1 ]
+]
+
+{ #category : #tests }
 AutoPilotPIDTest >> testNoError [
 
 	| ap |
