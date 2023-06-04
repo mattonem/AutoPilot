@@ -63,8 +63,8 @@ PIDAutoPilot >> step: newError newTime: aTime [
 	ei := { 
 		      { 
 			      ei.
-			      (corrMax / 2) } min.
-		      (0 - corrMax / 2) } max.
+			      (corrMax) } min.
+		      (0 - corrMax) } max.
 	derror := lastError - newError / dTime.
 	lastError := newError.
 	corr := kp * newError + (kd * derror) + (ki * ei).
