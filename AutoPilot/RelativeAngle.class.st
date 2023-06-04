@@ -1,7 +1,7 @@
 Class {
 	#name : #RelativeAngle,
 	#superclass : #GAngle,
-	#category : #AutoPilot
+	#category : #'AutoPilot-Tests'
 }
 
 { #category : #arithmetic }

@@ -1,14 +1,14 @@
 Class {
-	#name : #AutoPilotPIDTest,
+	#name : #PIDTest,
 	#superclass : #TestCase,
 	#category : #'AutoPilot-Tests'
 }
 
 { #category : #tests }
-AutoPilotPIDTest >> testMaxCorr [
+PIDTest >> testMaxCorr [
 
 	| ap |
-	ap := PIDAutoPilot new
+	ap := PIDController new
 		      kp: 2;
 		      ki: 1;
 		      kd: 0;
@@ -18,10 +18,10 @@ AutoPilotPIDTest >> testMaxCorr [
 ]
 
 { #category : #tests }
-AutoPilotPIDTest >> testNoError [
+PIDTest >> testNoError [
 
 	| ap |
-	ap := PIDAutoPilot new
+	ap := PIDController new
 		      kp: 1;
 		      ki: 1;
 		      kd: 1;
@@ -30,10 +30,10 @@ AutoPilotPIDTest >> testNoError [
 ]
 
 { #category : #tests }
-AutoPilotPIDTest >> testStaticErrorIntegralResponse [
+PIDTest >> testStaticErrorIntegralResponse [
 
 	| ap |
-	ap := PIDAutoPilot new
+	ap := PIDController new
 		      kp: 0;
 		      ki: 1;
 		      kd: 0;
@@ -42,10 +42,10 @@ AutoPilotPIDTest >> testStaticErrorIntegralResponse [
 ]
 
 { #category : #tests }
-AutoPilotPIDTest >> testStaticErrorProportionalResponse [
+PIDTest >> testStaticErrorProportionalResponse [
 
 	| ap |
-	ap := PIDAutoPilot new
+	ap := PIDController new
 		      kp: 1;
 		      ki: 0;
 		      kd: 0;

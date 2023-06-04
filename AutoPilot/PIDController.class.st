@@ -1,6 +1,6 @@
 Class {
-	#name : #PIDAutoPilot,
-	#superclass : #AutoPilot,
+	#name : #PIDController,
+	#superclass : #Controller,
 	#instVars : [
 		'kd',
 		'kp',
@@ -14,43 +14,43 @@ Class {
 }
 
 { #category : #accessing }
-PIDAutoPilot >> corrMax: anObject [
+PIDController >> corrMax: anObject [
 
 	corrMax := anObject
 ]
 
 { #category : #stepping }
-PIDAutoPilot >> initialize [ 
+PIDController >> initialize [ 
 	corrMax := Float infinity 
 ]
 
 { #category : #accessing }
-PIDAutoPilot >> kd: anObject [
+PIDController >> kd: anObject [
 
 	kd := anObject
 ]
 
 { #category : #accessing }
-PIDAutoPilot >> ki: anObject [
+PIDController >> ki: anObject [
 
 	ki := anObject
 ]
 
 { #category : #accessing }
-PIDAutoPilot >> kp: anObject [
+PIDController >> kp: anObject [
 
 	kp := anObject
 ]
 
 { #category : #stepping }
-PIDAutoPilot >> step: newError [
+PIDController >> step: newError [
 
 	lastUpdateTime ifNil: [ lastUpdateTime := 0 ].
 	^ self step: newError newTime: lastUpdateTime + 1
 ]
 
 { #category : #stepping }
-PIDAutoPilot >> step: newError newTime: aTime [
+PIDController >> step: newError newTime: aTime [
 
 	| derror corr dTime |
 	lastUpdateTime ifNil: [ lastUpdateTime := aTime  + 1 ].
@@ -76,13 +76,13 @@ PIDAutoPilot >> step: newError newTime: aTime [
 ]
 
 { #category : #accessing }
-PIDAutoPilot >> ti: anObject [
+PIDController >> ti: anObject [
 
 	ki := 1/anObject * kp
 ]
 
 { #category : #'as yet unclassified' }
-PIDAutoPilot >> tunePIDkCrit: kCrit tCrit: tCrit [
+PIDController >> tunePIDkCrit: kCrit tCrit: tCrit [
 
 	^ self
 		  kp: 0.6 * tCrit;
@@ -92,7 +92,7 @@ PIDAutoPilot >> tunePIDkCrit: kCrit tCrit: tCrit [
 ]
 
 { #category : #'as yet unclassified' }
-PIDAutoPilot >> tunePIkCrit: kcrit tCrit: tcrit [
+PIDController >> tunePIkCrit: kcrit tCrit: tcrit [
 
 	self
 		kp: kcrit * 0.45;
@@ -102,7 +102,7 @@ PIDAutoPilot >> tunePIkCrit: kcrit tCrit: tcrit [
 ]
 
 { #category : #'as yet unclassified' }
-PIDAutoPilot >> tunePkCrit: kCrit tCrit: tCrit [
+PIDController >> tunePkCrit: kCrit tCrit: tCrit [
 
 	^ self
 		  kp: 0.5 * kCrit;

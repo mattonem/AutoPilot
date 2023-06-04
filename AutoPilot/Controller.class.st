@@ -33,7 +33,7 @@
 ```
 "
 Class {
-	#name : #AutoPilot,
+	#name : #Controller,
 	#superclass : #Object,
 	#instVars : [
 		'headingSensor',
@@ -43,16 +43,16 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-AutoPilot >> headingSensor: aHeadingMock [ 
+Controller >> headingSensor: aHeadingMock [ 
 	headingSensor := aHeadingMock
 ]
 
 { #category : #'as yet unclassified' }
-AutoPilot >> stearingActuator: aStearingMock [ 
+Controller >> stearingActuator: aStearingMock [ 
 	stearingActuator := aStearingMock
 ]
 
 { #category : #'as yet unclassified' }
-AutoPilot >> step: aValue [
+Controller >> step: aValue [
 	self subclassResponsibility
 ]

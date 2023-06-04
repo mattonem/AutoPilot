@@ -1,14 +1,14 @@
 Class {
-	#name : #AutoPilotPIDIntegrationTest,
+	#name : #PIDIntegrationTest,
 	#superclass : #TestCase,
 	#category : #'AutoPilot-Tests'
 }
 
 { #category : #tests }
-AutoPilotPIDIntegrationTest >> testProportionalIntegralResponse [
+PIDIntegrationTest >> testProportionalIntegralResponse [
 
 	| system errCal ap |
-	errCal := ErrorCalculator new
+	errCal := CompassErrorCalculator new
 		          headingValue: 0 degrees;
 		          course: 10 degrees;
 		          yourself.
@@ -17,7 +17,7 @@ AutoPilotPIDIntegrationTest >> testProportionalIntegralResponse [
 		          k: 1;
 		          s: 1 degrees;
 		          yourself.
-	ap := PIDAutoPilot new
+	ap := PIDController new
 		      kp: 1;
 		      ki: 1;
 		      kd: 0;
@@ -33,10 +33,10 @@ AutoPilotPIDIntegrationTest >> testProportionalIntegralResponse [
 ]
 
 { #category : #tests }
-AutoPilotPIDIntegrationTest >> testProportionalResponse [
+PIDIntegrationTest >> testProportionalResponse [
 
 	| system errCal ap |
-	errCal := ErrorCalculator new
+	errCal := CompassErrorCalculator new
 		          headingValue: 0 degrees;
 		          course: 10 degrees;
 		          yourself.
@@ -44,7 +44,7 @@ AutoPilotPIDIntegrationTest >> testProportionalResponse [
 		          output: 0 degrees;
 		          k: 1;
 		          yourself.
-	ap := PIDAutoPilot new
+	ap := PIDController new
 		      kp: 1;
 		      ki: 0;
 		      kd: 0;
@@ -57,17 +57,17 @@ AutoPilotPIDIntegrationTest >> testProportionalResponse [
 ]
 
 { #category : #tests }
-AutoPilotPIDIntegrationTest >> testWithNoStearing [
+PIDIntegrationTest >> testWithNoStearing [
 
 	| system errCal ap |
-	errCal := ErrorCalculator new
+	errCal := CompassErrorCalculator new
 		          headingValue: 0 degrees;
 		          course: 1 degrees;
 		          yourself.
 	system := MockComplexeSystem new
 		          output: 0 degrees;
 		          yourself.
-	ap := PIDAutoPilot new
+	ap := PIDController new
 		      kp: 1;
 		      ki: 0;
 		      kd: 0;
@@ -77,10 +77,10 @@ AutoPilotPIDIntegrationTest >> testWithNoStearing [
 ]
 
 { #category : #tests }
-AutoPilotPIDIntegrationTest >> testZigZag [
+PIDIntegrationTest >> testZigZag [
 
 	| system errCal ap |
-	errCal := ErrorCalculator new
+	errCal := CompassErrorCalculator new
 		          headingValue: 0 degrees;
 		          course: 0 degrees;
 		          yourself.
@@ -89,7 +89,7 @@ AutoPilotPIDIntegrationTest >> testZigZag [
 		          k: 1;
 		          s: 0.5 degrees;
 		          yourself.
-	ap := PIDAutoPilot new
+	ap := PIDController new
 		      kp: 1;
 		      ki: 1;
 		      kd: 0;
