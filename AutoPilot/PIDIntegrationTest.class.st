@@ -12,7 +12,7 @@ PIDIntegrationTest >> testProportionalIntegralResponse [
 		          headingValue: 0 degrees;
 		          course: 10 degrees;
 		          yourself.
-	system := MockComplexeSystem new
+	system := AngularMockComplexeSystem new
 		          output: 0 degrees;
 		          k: 1;
 		          s: 1 degrees;
@@ -40,7 +40,7 @@ PIDIntegrationTest >> testProportionalResponse [
 		          headingValue: 0 degrees;
 		          course: 10 degrees;
 		          yourself.
-	system := MockComplexeSystem new
+	system := AngularMockComplexeSystem new
 		          output: 0 degrees;
 		          k: 1;
 		          yourself.
@@ -64,7 +64,7 @@ PIDIntegrationTest >> testWithNoStearing [
 		          headingValue: 0 degrees;
 		          course: 1 degrees;
 		          yourself.
-	system := MockComplexeSystem new
+	system := AngularMockComplexeSystem new
 		          output: 0 degrees;
 		          yourself.
 	ap := PIDController new
@@ -84,7 +84,7 @@ PIDIntegrationTest >> testZigZag [
 		          headingValue: 0 degrees;
 		          course: 0 degrees;
 		          yourself.
-	system := MockComplexeSystem new
+	system := AngularMockComplexeSystem new
 		          output: 0 degrees;
 		          k: 1;
 		          s: 0.5 degrees;

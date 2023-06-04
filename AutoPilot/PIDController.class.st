@@ -10,7 +10,7 @@ Class {
 		'corrMax',
 		'lastUpdateTime'
 	],
-	#category : #AutoPilot
+	#category : #'AutoPilot-Core'
 }
 
 { #category : #accessing }

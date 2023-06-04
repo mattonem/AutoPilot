@@ -5,7 +5,7 @@ Class {
 		'heading',
 		'course'
 	],
-	#category : #AutoPilot
+	#category : #'AutoPilot-Core'
 }
 
 { #category : #'as yet unclassified' }

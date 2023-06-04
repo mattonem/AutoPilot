@@ -1,5 +1,5 @@
 Class {
-	#name : #MockComplexeSystem,
+	#name : #AngularMockComplexeSystem,
 	#superclass : #Object,
 	#instVars : [
 		'output',
@@ -10,34 +10,34 @@ Class {
 }
 
 { #category : #accessing }
-MockComplexeSystem >> initialize [ 
+AngularMockComplexeSystem >> initialize [ 
 	k := 0.
 	s := 0 degrees.
 ]
 
 { #category : #accessing }
-MockComplexeSystem >> input: input [
+AngularMockComplexeSystem >> input: input [
 
 	^ output := output + (k * input) degrees + s value
 ]
 
 { #category : #accessing }
-MockComplexeSystem >> k: aVal [
+AngularMockComplexeSystem >> k: aVal [
 
 	k := aVal
 ]
 
 { #category : #accessing }
-MockComplexeSystem >> output [
+AngularMockComplexeSystem >> output [
 	^ output
 ]
 
 { #category : #accessing }
-MockComplexeSystem >> output: aVal [
+AngularMockComplexeSystem >> output: aVal [
 	output := aVal
 ]
 
 { #category : #'as yet unclassified' }
-MockComplexeSystem >> s: aNumber [ 
+AngularMockComplexeSystem >> s: aNumber [ 
 	s := aNumber
 ]

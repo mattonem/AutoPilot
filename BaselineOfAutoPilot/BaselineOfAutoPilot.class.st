@@ -8,5 +8,5 @@ Class {
 BaselineOfAutoPilot >> baseline: spec [
 
 	<baseline>
-	spec for: #common do: [ spec package: #Controller ]
+	spec for: #common do: [ spec package: #AutoPilot ]
 ]
